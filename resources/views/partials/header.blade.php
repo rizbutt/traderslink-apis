@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
-
+125
 <header class="header navbar-area">
         <div class="container">
             <div class="row align-items-center">

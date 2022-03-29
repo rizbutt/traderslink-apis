@@ -147,7 +147,7 @@
                         <!-- Single Widget -->
                         <div class="f-about single-footer">
                             <div class="logo">
-                                <a href="index.html"><img src="assets/images/logo.svg" alt="#"></a>
+                                <a href="index.html"><img src="{{ asset('images/logo.svg') }}" alt="#"></a>
                             </div>
                             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
                                 has been the industry.</p>
@@ -184,7 +184,7 @@
                                         <li><i class="lni lni-envelope"></i> <a
                                                 href="mailto:support@gmail.com">support@traderslink.pk</a></li>
                                         <li><i class="lni lni-map-marker"></i> Pakistan</li>
-                                        <li><i class="lni lni-world"></i> <a href="#">www.yoursite.com</a></li>
+                                        
                                     </ul>
                                 </div>
                                 <!-- End Single Widget -->
@@ -196,17 +196,17 @@
                         <div class="single-footer gallery">
                             <h3>Photo Gallery</h3>
                             <ul class="list">
-                                <li><a href="#"><img src="assets/images/gallery1.jpg" alt="#"><i
+                                <li><a href="#"><img src="{{ asset('images/gallery1.jpg') }}" alt="#"><i
                                             class="lni lni-instagram"></i></a></li>
-                                <li><a href="#"><img src="assets/images/gallery2.jpg" alt="#"><i
+                                <li><a href="#"><img src="{{ asset('images/gallery2.jpg') }}" alt="#"><i
                                             class="lni lni-instagram"></i></a></li>
-                                <li><a href="#"><img src="assets/images/gallery3.jpg" alt="#"><i
+                                <li><a href="#"><img src="{{ asset('images/gallery3.jpg') }}" alt="#"><i
                                             class="lni lni-instagram"></i></a></li>
-                                <li><a href="#"><img src="assets/images/gallery4.jpg" alt="#"><i
+                                <li><a href="#"><img src="{{ asset('images/gallery4.jpg') }}" alt="#"><i
                                             class="lni lni-instagram"></i></a></li>
-                                <li><a href="#"><img src="assets/images/gallery5.jpg" alt="#"><i
+                                <li><a href="#"><img src="{{ asset('images/gallery5.jpg') }}" alt="#"><i
                                             class="lni lni-instagram"></i></a></li>
-                                <li><a href="#"><img src="assets/images/gallery6.jpg" alt="#"><i
+                                <li><a href="#"><img src="{{ asset('images/gallery6.jpg') }}" alt="#"><i
                                             class="lni lni-instagram"></i></a></li>
                             </ul>
                         </div>
@@ -224,7 +224,7 @@
                         <div class="col-lg-6 col-md-6 col-12">
                             <div class="left">
                                 <p>Designed and Developed by<a href="#" rel="nofollow"
-                                        target="_blank">GrayGrids</a></p>
+                                        target="_blank">MathTech</a></p>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-12">
