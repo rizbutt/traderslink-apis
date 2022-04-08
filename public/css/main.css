@@ -1727,15 +1727,18 @@ p {
     transition: all 0.4s ease;
     margin: 15px 0;
 }
+.services .single-service h3 {
+    width: 100%;
 
+}
 .services .single-service .serial span {
-    font-size: 30px;
+    font-size: 130px;
     position: absolute;
     left: 40px;
     top: 40px;
-    height: 65px;
-    width: 65px;
-    line-height: 65px;
+    height: 165px;
+    width: 165px;
+    line-height: 165px;
     text-align: center;
     background: #74b9ff;
     color: #3e54ff;

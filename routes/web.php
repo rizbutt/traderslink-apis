@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +16,26 @@ use App\Http\Controllers\CategoryController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','PageController@index');
+Route::get('/about-us','PageController@about')->name('aboutus');
+Route::get('/contact-us','PageController@contact')->name('contactus');
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::name('admin.')->prefix('admin')->group(function () {
 Route::group(['middleware' => ['admin']], function () { 
-    Route::get('admin-view', 'HomeController@adminView')->name('admin.view');
+    Route::post('add-category', 'CategoryController@store')->name('addcategory');
+    Route::get('/categories', 'CategoryController@index')->name('category.index');
+    Route::get('/categories/{slug}', 'CategoryController@show')->name('category.show');
+    Route::PUT('/categories/{id}', 'CategoryController@update')->name('category.update');
+    Route::get('/categories/{id}/edit', 'CategoryController@edit')->name('category.edit');
+    Route::DELETE('/categories/{id}', 'CategoryController@destroy')->name('category.delete');
+    Route::get('/new-category', 'CategoryController@create')->name('category.create');
+
+    Route::get('/users', 'UsersController@index')->name('users.index');
+    Route::get('/users/{id}/edit', 'UsersController@edit')->name('users.edit');
+    Route::PUT('/users/{id}', 'UsersController@update')->name('users.update');
+});
+
 });

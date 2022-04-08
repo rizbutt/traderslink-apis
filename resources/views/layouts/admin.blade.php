@@ -52,7 +52,7 @@
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ms-auto">
                                 <li class="nav-item">
-                                    <a class="page-scroll active" href="index.html">Categories</a>
+                                    <a class="page-scroll active" href="{{ route('admin.category.index') }}">Categories</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="page-scroll" href="about-us.html">Users</a>

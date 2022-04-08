@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" >
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}" >
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/aboutus.css') }}" >
 </head>
 <body>
 
@@ -37,11 +38,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-9 col-12">
-                        <!-- <div class="toolbar-contact">
-                            <p><i class="lni lni-envelope"></i><a href="mailto:info@yourwebsite.com">info@yourwebsite.com</a></p>
-                            <p><i class="lni lni-phone"></i><a href="tel:+123456789">(+123) 456789</a></p>
-                            <p><i class="lni lni-map-marker"></i> Location H-11,R-20/2,USA</p>
-                        </div> -->
                     </div>
                     <div class="col-lg-4 col-md-3 col-12">
                         <div class="toolbar-sl-share">
@@ -112,13 +108,13 @@
                                     <a class="page-scroll active" href="index.html">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="page-scroll" href="about-us.html">About Us</a>
+                                    <a class="page-scroll" href="{{ route('aboutus') }}">About Us</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="page-scroll" href="javascript:void(0)">Services</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="page-scroll" href="javascript:void(0)">Contact</a>
+                                    <a class="page-scroll" href="{{ route('contactus') }}">Contact</a>
                                 </li>
                             </ul>
                         </div> <!-- navbar collapse -->
