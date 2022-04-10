@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Queries extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id', 'type', 'sender_phone_number', 'sender_name', 'content'
+    ];
 }

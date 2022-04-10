@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Categories;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Queries;
 
-class PageController extends Controller
+class QueryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $categories = Categories::all()->where('parent_id', 0);
-        return view('index',compact('categories'));
+        //
     }
 
     /**
@@ -23,20 +23,11 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function about()
+    public function create()
     {
-        return view('aboutus');
+        //
     }
 
-    public function contact()
-    {
-        return view('contactus');
-    }
-    public function findparts()
-    {
-        $categories = Categories::all();
-        return view('findparts',compact('categories'));
-    }
     /**
      * Store a newly created resource in storage.
      *
@@ -45,7 +36,21 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Validator::make($request->all(), [
+            'sender_name' => ['required', 'string', 'max:255'],
+            'sender_phone_number' => ['required', 'string', 'max:255'],
+            'type' => ['required', 'string', 'max:8'],
+            'content' => ['required', 'string', 'max:2048'],
+            ]);
+            $data = $data->safe()->collect();
+            Queries::create([
+                'user_id' => 'guest',
+                'sender_name' => $data['sender_name'],
+                'sender_phone_number' => $data['sender_phone_number'],
+                'type' => $data['type'],
+                'content' => $data['content'],
+            ]);
+        dd($request->all());
     }
 
     /**

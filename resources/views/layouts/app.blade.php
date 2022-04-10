@@ -52,7 +52,7 @@
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('newuser') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -119,7 +119,7 @@
                             </ul>
                         </div> <!-- navbar collapse -->
                         <div class="button">
-                            <a href="javascript:void(0)" class="btn white-bg mouse-dir">Find Your Part <span class="dir-part"></span></a>
+                            <a href="{{ route('findparts') }}" class="btn white-bg mouse-dir">Find Your Part <span class="dir-part"></span></a>
                         </div>
                     </nav> <!-- navbar -->
                     </div>

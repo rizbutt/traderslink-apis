@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\QueryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,10 @@ use App\Http\Controllers\PageController;
 Route::get('/','PageController@index');
 Route::get('/about-us','PageController@about')->name('aboutus');
 Route::get('/contact-us','PageController@contact')->name('contactus');
+Route::get('/find-your-parts','PageController@findparts')->name('findparts');
+Route::post('/submitquery','QueryController@store')->name('querycreate');
+Route::post('/user-register',[App\Http\Controllers\Auth\RegisterController::class, 'regitser'])->name('userregister');
+Route::get('/register-user',[App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('newuser');
 
 Auth::routes();
 

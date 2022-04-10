@@ -9,9 +9,9 @@ use App\Models\Vendor_Details;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Categories;
 
 class RegisterController extends Controller
 {
@@ -52,7 +52,11 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
 
+    public function create(){
+        $category = Categories::all();
 
+        return view('auth.register',compact('category'));
+    }
     /**
      * Create a new user instance after a valid registration.
      *
@@ -61,76 +65,97 @@ class RegisterController extends Controller
      */
     public function regitser(Request $request)
     {
-        $data = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'phone' => ['required', 'string', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'type' => ['required', 'string', 'max:2'],
-
-        ]);
-        if ($data->fails()) {
-            $errors = $data->errors();
-            return response()->json([
-                'err' => $errors,
-            ]);
-        } else {
-            $data = $data->safe()->collect()->merge(['status' => false]);
-             $checktype = $request->input('type');
-             if($checktype != '1'){ 
-                      User::create([
-                             'name' => $data['name'],
-                             'phone' => $data['phone'],
-                            'password' => Hash::make($data['password']),
-                            'type' => $data['type'],
-                            'status' => $data['status'],
-                         ]);
-                    $data = $checktype.'here';
-             }else {
-                $lastId = User::create([
-                                        'name' => $data['name'],
-                                        'phone' => $data['phone'],
-                                        'password' => Hash::make($data['password']),
-                                        'type' => $data['type'],
-                                        'status' => $data['status'],
-                                    ])->id;
-                                    $vendordata = Validator::make($request->all(), [
-                                        'city' => ['required', 'string', 'max:50'],
-                                        'address' => ['required', 'string', 'max:255'],
-                                        'shop_number' => ['required', 'string', 'max:255'],
-                                        'shop_images' => ['image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
-                                        'dealin' => ['required', 'string', 'max:2048'],
-                            
-                                    ]);
-                                    if ($vendordata->fails()) {
-                                        $errors = $vendordata->errors();
-                                        return response()->json([
-                                            'err' => $errors,
-                                        ]);
-                                    }else {
-                                        $vendordata = $vendordata->safe()->collect()->merge(['user_id' => $lastId]);
-                                        Vendor_Details::create([
-                                            'user_id' => $vendordata['user_id'],
-                                            'city' => $vendordata['city'],
-                                            'address' => $vendordata['address'],
-                                            'shop_number' => $vendordata['shop_number'],
-                                            'shop_images' => 'logo.svg',
-                                            'dealin' => $vendordata['dealin'],
-                                        ]);
+        $category = Categories::all();
+        if (array_key_exists("type",$request->all())){
+            // $files = $request->file('shop_images');
+            // foreach($files as $file){
+            //     $extension = $file->getClientOriginalExtension();
+            //     print_r($extension);
+            // }
+            // dd($files);
+            $data = Validator::make($request->all(), [
+                    'name' => ['required', 'string', 'max:255'],
+                    'phone' => ['required', 'string', 'max:255', 'unique:users'],
+                    'password' => ['required', 'string', 'min:8'],
+                    'type' => ['required', 'string', 'max:2'],
+                    'city' => ['required', 'string', 'max:50'],
+                    'address' => ['required', 'string', 'max:255'],
+                    'shop_number' => ['required', 'string', 'max:255'],
+                    'dealin' => ['required', 'string', 'max:2048'],
+                    ]);
+                    if ($data->fails()) {
+                        $errors = $data->errors();
+                        return redirect()->route('newuser')
+                        ->with('message', $errors);
+                    }else {
+                        if($request->hasFile('shop_images')){
+                            $allowedfileExtension=['pdf','jpg','png','jpeg'];
+                            $files = $request->file('shop_images');
+                            $shopImages = [];
+                            foreach($files as $file){
+                                $filename = $file->getClientOriginalName();
+                                $extension = $file->getClientOriginalExtension();
+                                print_r($extension);
+                                $check=in_array($extension,$allowedfileExtension);
+                                if($check){
+                                    $destinationPath = 'image/vendors/'.$request->phone;
+                                    if (!file_exists($destinationPath)) {
+                                        mkdir($destinationPath, 0777, true);
                                     }
-                $data = $vendordata;
-             }
-            
-            return response()->json([
-                'name' => $data,
-            ]);
-        }
-        
-        return response()->json([
-            'name' => $data,
-        ]);
-    //     return (new PlayerResource($player))
-    //             ->response()
-    //             ->setStatusCode(201);
+                                        $profileImage = date('YmdHis'). $filename . "." . $extension;
+                                        array_push($shopImages,$profileImage);
+                                }
+                            }
+                            $images = implode (", ", $shopImages);
+
+                        }
+                        $data = $data->safe()->collect();
+                        $lastId = User::create([
+                            'name' => $data['name'],
+                            'phone' => $data['phone'],
+                            'password' => Hash::make($data['password']),
+                            'type' => 1,
+                            'status' => 0,
+                        ])->id;
+                        
+                        Vendor_Details::create([
+                            'user_id' => $lastId,
+                            'city' => $data['city'],
+                            'address' => $data['address'],
+                            'shop_number' => $data['shop_number'],
+                            'shop_images' => $images,
+                            'dealin' => $data['dealin'],
+                        ]);
+                        return redirect()->route('newuser')
+                        ->with('success','Vendor Submition Request Submited');
+                    }
+
+                }
+                else
+                {
+                    $data = Validator::make($request->all(), [
+                        'name' => ['required', 'string', 'max:255'],
+                        'phone' => ['required', 'string', 'max:255', 'unique:users'],
+                        'password' => ['required', 'string', 'min:8'],
+                    ]);
+                    if ($data->fails()) {
+                        $errors = $data->errors();
+                        return redirect()->route('newuser')
+                        ->with('message', $errors);
+
+                    } else {
+                        User::create([
+                            'name' => $data['name'],
+                            'phone' => $data['phone'],
+                           'password' => Hash::make($data['password']),
+                           'type' => 0,
+                           'status' => 1,
+                        ]);
+                        return redirect()->route('login')
+                        ->with('success','You Can Login Now');
+                    }
+                }
+        //dd($request->all());
      }
      public function login(Request $request)
      {
