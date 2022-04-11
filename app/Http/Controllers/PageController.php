@@ -12,6 +12,11 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function comingsoon()
+    {
+        
+        return view('welcome');
+    }
     public function index()
     {
         $categories = Categories::all()->where('parent_id', 0);

@@ -16,8 +16,8 @@ use App\Http\Controllers\QueryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/','PageController@index');
+Route::get('/','PageController@comingsoon');
+Route::get('/main','PageController@index');
 Route::get('/about-us','PageController@about')->name('aboutus');
 Route::get('/contact-us','PageController@contact')->name('contactus');
 Route::get('/find-your-parts','PageController@findparts')->name('findparts');
