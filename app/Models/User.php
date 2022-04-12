@@ -27,6 +27,7 @@ class User extends Authenticatable
         'shop_number',
         'shop_images',
         'dealin',
+        'status',
     ];
 
     /**
