@@ -144,6 +144,7 @@ class RegisterController extends Controller
                         ->with('message', $errors);
 
                     } else {
+                        $data = $data->safe()->collect();
                         User::create([
                             'name' => $data['name'],
                             'phone' => $data['phone'],
