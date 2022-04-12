@@ -42,8 +42,9 @@
                             <select class="form-select" id="parent_id" name="parent_id">
                                 <option selected>Select Categories</option>
                                 <option value="0">Main Category</option>
-                                <option value="1">Two</option>
-                                <option value="3">Three</option>
+                                @foreach ($categories as $cat)
+                                <option value="{{ $cat->id }}" >{{ $cat->name }}</option>
+                                @endforeach
                             </select>
                             @error('parent_id')
                                     <span class="invalid-feedback" role="alert">
@@ -55,7 +56,7 @@
                         <div class="row mb-3">
                             <label for="parent_id" class="col-md-4 col-form-label text-md-end">{{ __('Category Icon') }}</label>
 
-                            <div class="col-md-6"> <i class="fa fa-copy"></i>
+                            <div class="col-md-6"> 
                             <select class="form-select" id="image" name="image">
                                 <option selected>Select category Icon</option>
                                 <option value="lni lni-code"> <i class="fa fa-caret-down" aria-hidden="true"></i></option>

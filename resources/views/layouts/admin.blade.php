@@ -55,7 +55,7 @@
                                     <a class="page-scroll active" href="{{ route('admin.category.index') }}">Categories</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="page-scroll" href="about-us.html">Users</a>
+                                    <a class="page-scroll" href="{{ route('admin.users.index') }}">Users</a>
                                 </li>
                             </ul>
                         </div> <!-- navbar collapse -->
