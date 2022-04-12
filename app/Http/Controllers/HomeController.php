@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Models\Vendor_Details;
+use App\Models\Queries;
 
 class HomeController extends Controller
 {
@@ -28,7 +30,10 @@ class HomeController extends Controller
         if (Auth::user() &&  Auth::user()->type == 0) { 
             return view('admin.adminhome');
         }elseif(Auth::user() &&  Auth::user()->type == 1){
-            return view('vendor.home');
+            $vendor_details = Vendor_Details::where('user_id', Auth::user()->id)->firstOrFail();
+            $vendor_queries = Queries::where('type', $vendor_details->dealin)->get();
+            //dd($vendor_queries);
+            return view('vendor.home', compact('vendor_queries'));
         }
     }
 
