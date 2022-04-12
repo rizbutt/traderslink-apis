@@ -149,7 +149,7 @@ class RegisterController extends Controller
                             'name' => $data['name'],
                             'phone' => $data['phone'],
                            'password' => Hash::make($data['password']),
-                           'type' => 0,
+                           'type' => 2,
                            'status' => 1,
                         ]);
                         return redirect()->route('login')
