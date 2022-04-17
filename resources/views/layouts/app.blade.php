@@ -92,7 +92,7 @@
                     <div class="col-lg-12">
                     <div class="nav-inner">
                     <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand" href="index.html">
+                        <a class="navbar-brand" href="{{ route('main') }}">
                             <img src="{{ asset('images/logo.svg') }}" alt="Logo">
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -111,7 +111,16 @@
                                     <a class="page-scroll" href="{{ route('aboutus') }}">About Us</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="page-scroll" href="javascript:void(0)">Services</a>
+                                    <a class="page-scroll dd-menu collapsed" href="javascript:void(0)"
+                                        data-bs-toggle="collapse" data-bs-target="#submenu-1-1"
+                                        aria-controls="navbarSupportedContent" aria-expanded="false"
+                                        aria-label="Toggle navigation">Find By Category</a>
+                                    <ul class="sub-menu collapse" id="submenu-1-1">
+                                    
+                                        <li class="nav-item"><a href="about-us.html">About Us</a>
+                                    
+                                    </li>
+                                    </ul>
                                 </li>
                                 <li class="nav-item">
                                     <a class="page-scroll" href="{{ route('contactus') }}">Contact</a>
@@ -129,7 +138,7 @@
         </header>
         
         <main>
-
+        @yield('header')
             @yield('content')
         </main>
     </div>

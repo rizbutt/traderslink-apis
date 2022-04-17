@@ -15,10 +15,19 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Categories::latest()->paginate(5);
-    
+        $categories = Categories::latest()->paginate(10);
+        foreach($categories as $category){
+            if($category['parent_id'] == '0'){
+                $category['parent_id'] = 'Master';
+            }else{
+                $parentdetails = Categories::where('parent_id', $category['parent_id'])->firstOrFail();
+                $parent_name = $parentdetails['name'];
+                $category['parent_id'] = $parent_name;
+            }
+            
+        }
         return view('admin.category.index',compact('categories'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -40,6 +49,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->all());
         $data = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255'],
@@ -91,7 +101,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = Categories::find($id);
-        //dd($Categories);
+        //dd($category);
         $cat_list = Categories::all();
         //dd($cat_list);
         return view('admin.category.edit',compact('category', 'cat_list'));
@@ -140,9 +150,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categories $category)
+    public function destroy(Categories $id)
     {
-        $category->delete();
+        $id->delete();
      
         return redirect()->route('admin.category.index')
                         ->with('success','Product deleted successfully');

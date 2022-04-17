@@ -56,13 +56,24 @@
                         <div class="row mb-3">
                             <label for="parent_id" class="col-md-4 col-form-label text-md-end">{{ __('Category Icon') }}</label>
 
-                            <div class="col-md-6"> 
-                            <select class="form-select" id="image" name="image">
+                            <div class="col-md-6"> <i class="fas fa-car-garage"></i>
+                            <select class="fa form-select selectoptions" id="image" name="image">
                                 <option selected>Select category Icon</option>
-                                <option value="lni lni-code"> <i class="fa fa-caret-down" aria-hidden="true"></i></option>
-                                <option value="0"><i class="fa fa-gears"></i></option>
-                                
+                                <option value="fa fa-gears"> &#xf085; Gears  </option>
+                                <option value="fas fa-binoculars"> &#xf1e5; Binoculars</option>
+                                <option value="fa-solid fa-car"> &#xf1b9; Car</option>
+                                <option value="fas fa-car-battery"> &#xf5df; Battery</option>
+                                <option value="fas fa-car-crash"> &#xf5e1; Car Crash</option>
+                                <option value="fas fa-compass"> &#xf14e; Compass</option>
+                                <option value="fas fa-cubes"> &#xf1b3; Cubes</option>
+                                <option value="fas fa-fire-extinguisher"> &#xf134; Extinguisher</option>
+                                <option value="fas fa-location-arrow"> &#xf124; Arrow</option>
+                                <option value="fas fa-recycle"> &#xf1b8; Recycle Arrows</option>
+                                <option value="fas fa-rocket"> &#xf135; Rocket</option>f05b
+                                <option value="fas fa-road"> &#xf018; Road</option>
+                                <option value="fas fa-crosshairs"> &#xf05b; Crosshairs</option>
                             </select>
+                           
                             </div>
                         </div>
                         <div class="row mb-3">

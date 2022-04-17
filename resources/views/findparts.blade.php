@@ -10,12 +10,12 @@
         <input class="form-control" name="sender_phone_number" placeholder="Phone..." /><br />
         <div class="row mb-3">
                             <label for="Type" class="col-md-4 col-form-label text-md-end">{{ __('Required Type') }}</label>
-
+        
                             <div class="col-md-6">
                             <select class="form-select" name="type" aria-label="Default select">
                                 <option value="" selected>Select Part Category</option>
                                 @foreach ($categories as $cat)
-                                <option value="{{ $cat->id }}" >{{ $cat->name }}</option>
+                                <option value="{{ $cat->id }}" @if ($cat->id == $selectedcategory) selected @endif >{{ $cat->name }}</option>
                                 @endforeach
                             </select>
                             </div>

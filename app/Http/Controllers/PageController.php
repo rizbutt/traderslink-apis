@@ -19,7 +19,8 @@ class PageController extends Controller
     }
     public function index()
     {
-        $categories = Categories::all()->where('parent_id', 0);
+        $categories = Categories::all()->where('parent_id', 0)->where('status', 1);
+        
         return view('index',compact('categories'));
     }
 
@@ -37,10 +38,15 @@ class PageController extends Controller
     {
         return view('contactus');
     }
-    public function findparts()
+    public function findparts(Request $request, $id=null)
     {
+        $selectedcategory = '';
+        if($id != null){
+            $forcategory = Categories::where('slug', $id)->firstOrFail();
+            $selectedcategory = $forcategory->id;
+        }
         $categories = Categories::all();
-        return view('findparts',compact('categories'));
+        return view('findparts',compact('categories', 'selectedcategory'));
     }
     /**
      * Store a newly created resource in storage.
@@ -59,9 +65,11 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function category($id)
     {
-        //
+        $maincategory = Categories::where('slug', $id)->where('status', 1)->firstOrFail();
+        $childcategory = Categories::all()->where('parent_id', $maincategory->id)->where('status', 1);
+        return view('category',compact('childcategory'));
     }
 
     /**

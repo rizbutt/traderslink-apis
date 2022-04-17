@@ -20,13 +20,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/LineIcons.2.0.css') }}" >
+    
     <link href="{{ asset('css/animate.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/tiny-slider.css') }}" >
     <link rel="stylesheet" href="{{ asset('css/glightbox.min.css') }}" >
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" >
     <link rel="stylesheet" href="{{ asset('css/reset.css') }}" >
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}" >
+    
 </head>
 <body>
 

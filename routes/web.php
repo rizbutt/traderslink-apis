@@ -17,13 +17,14 @@ use App\Http\Controllers\QueryController;
 |
 */
 Route::get('/','PageController@comingsoon');
-Route::get('/main','PageController@index');
+Route::get('/main','PageController@index')->name('main');
 Route::get('/about-us','PageController@about')->name('aboutus');
 Route::get('/contact-us','PageController@contact')->name('contactus');
-Route::get('/find-your-parts','PageController@findparts')->name('findparts');
+Route::get('/find-your-parts/{id?}','PageController@findparts')->name('findparts');
 Route::post('/submitquery','QueryController@store')->name('querycreate');
 Route::post('/user-register',[App\Http\Controllers\Auth\RegisterController::class, 'regitser'])->name('userregister');
 Route::get('/register-user',[App\Http\Controllers\Auth\RegisterController::class, 'create'])->name('newuser');
+Route::get('/category/{slug}', 'PageController@category')->name('category');
 
 Auth::routes();
 
