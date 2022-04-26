@@ -1,18 +1,4 @@
-@extends('layouts.admin')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-    <div class="col-md-8">
-    <button onclick="startFCM()" class="btn btn-danger btn-flat">Allow notification</button>
-            @foreach($vendor_queries as $query)
-                <p>{{ $query->content }}</p>
-            @endforeach
-        </div>
-    </div>
-</div>
-<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-<script>
     var firebaseConfig = {
         apiKey: 'AIzaSyBG78N2CA0cj7-Mr293Y6DT2Qh8XH-2ysk',
         authDomain: 'innercity-3a92d.firebaseapp.com',
@@ -64,5 +50,3 @@
         };
         new Notification(title, options);
     });
-</script>
-@endsection

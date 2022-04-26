@@ -138,7 +138,7 @@
         </header>
         
         <main>
-        @yield('header')
+        
             @yield('content')
         </main>
     </div>

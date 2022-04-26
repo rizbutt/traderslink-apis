@@ -65,7 +65,6 @@ class UsersController extends Controller
         $users = User::find($id);
         if($users->type == 1){
             $details = Vendor_Details::where('user_id', $id)->firstOrFail();
-            //$vendor_category = Categories::find($details->dealin);
             $vendor = (object)[
                 'id' => $users->id,
                 'name' => $users->name,

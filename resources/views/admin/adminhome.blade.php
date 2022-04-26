@@ -3,92 +3,90 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-    <div class="col-md-8">
-            <div class="card">
-            <div class="card-header">{{ __('Add Dean In Category') }}</div>
-            <div class="card-body">
-                    <form method="POST" action="{{ route('admin.addcategory') }}">
+        <div class="col-md-8">
+                <button onclick="startFCM()"
+                    class="btn btn-danger btn-flat">Allow notification
+                </button>
+            <div class="card mt-3">
+                <div class="card-body">
+                    @if (session('status'))
+                    <div class="alert alert-success" role="alert">
+                        {{ session('status') }}
+                    </div>
+                    @endif
+                    <form action="{{ route('send.web-notification') }}" method="POST">
                         @csrf
-                        <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="" required autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label>Message Title</label>
+                            <input type="text" class="form-control" name="title">
                         </div>
-                        <div class="row mb-3">
-                            <label for="slug" class="col-md-4 col-form-label text-md-end">{{ __('slug') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="slug" type="text" class="form-control" name="slug" value="" required >
-
-                                @error('slug')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="form-group">
+                            <label>Message Body</label>
+                            <textarea class="form-control" name="body"></textarea>
                         </div>
-                        <div class="row mb-3">
-                            <label for="parent_id" class="col-md-4 col-form-label text-md-end">{{ __('Parent Category') }}</label>
-
-                            <div class="col-md-6">
-                            <select class="form-select" id="parent_id" name="parent_id">
-                                <option selected>Select Categories</option>
-                                <option value="0">Main Category</option>
-                                <option value="1">Two</option>
-                                <option value="3">Three</option>
-                            </select>
-                            @error('parent_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="parent_id" class="col-md-4 col-form-label text-md-end">{{ __('Category Icon') }}</label>
-
-                            <div class="col-md-6"> <i class="fa fa-copy"></i>
-                            <select class="form-select" id="image" name="image">
-                                <option selected>Select category Icon</option>
-                                <option value="lni lni-code"> <i class="fa fa-caret-down" aria-hidden="true"></i></option>
-                                <option value="0"><i class="fa fa-gears"></i></option>
-                                
-                            </select>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label for="parent_id" class="col-md-4 col-form-label text-md-end">{{ __('Status') }}</label>
-
-                            <div class="col-md-6">
-                            <select class="form-select" id="status" name="status" aria-label="Default select example">
-                                <option selected>Select Status</option>
-                                <option value="1">Active</option>
-                                <option value="0">In Active</option>
-                                
-                            </select>
-                            </div>
-                        </div>
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Add Category') }}
-                                </button>
-                            </div>
-                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Send Notification</button>
                     </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
-    
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+<script>
+    var firebaseConfig = {
+        apiKey: 'AIzaSyBG78N2CA0cj7-Mr293Y6DT2Qh8XH-2ysk',
+        authDomain: 'innercity-3a92d.firebaseapp.com',
+        databaseURL: 'https://innercity-3a92d-default-rtdb.firebaseio.com',
+        projectId: 'innercity-3a92d',
+        storageBucket: 'innercity-3a92d.appspot.com',
+        messagingSenderId: '489819368551',
+        appId: '1:489819368551:web:a03b7bba1376e6b09ff8c2',
+        measurementId: 'G-XN5DNGCJF5',
+    };
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+    function startFCM() {
+        messaging
+            .requestPermission()
+            .then(function () {
+                
+                return messaging.getToken()
+            })
+            .then(function (response) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: '{{ route("store.token") }}',
+                    type: 'POST',
+                    data: {
+                        token: response
+                    },
+                    dataType: 'JSON',
+                    success: function (response) {
+                        alert('Token stored.');
+                    },
+                    error: function (data) {
+                        alert(data+'this');
+                    },
+                });
+            }).catch(function (error) {
+                alert(error);
+            });
+    }
+    messaging.onMessage(function (payload) {
+        const title = payload.notification.title;
+        const options = {
+            body: payload.notification.body,
+            icon: payload.notification.icon,
+        };
+        new Notification(title, options);
+    });
+</script>
+   
 @endsection
 
     </body>

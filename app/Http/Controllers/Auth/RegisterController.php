@@ -67,12 +67,6 @@ class RegisterController extends Controller
     {
         $category = Categories::all();
         if (array_key_exists("type",$request->all())){
-            // $files = $request->file('shop_images');
-            // foreach($files as $file){
-            //     $extension = $file->getClientOriginalExtension();
-            //     print_r($extension);
-            // }
-            // dd($files);
             $data = Validator::make($request->all(), [
                     'name' => ['required', 'string', 'max:255'],
                     'phone' => ['required', 'string', 'max:255', 'unique:users'],
