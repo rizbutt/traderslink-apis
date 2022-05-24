@@ -102,7 +102,7 @@ class QueryController extends Controller
             // Close connection
             curl_close($ch);
             // FCM response
-            dd($result);
+            return view('querythanks');
     }
 
     /**

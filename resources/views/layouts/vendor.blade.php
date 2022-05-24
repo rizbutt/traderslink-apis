@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ Traderslink Vendors') }}</title>
+    <title>{{ ('Traderslink Vendors') }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.svg') }}" />
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -133,6 +133,7 @@
     <script src="{{ asset('js/isotope.min.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/jquery.js') }}"></script>
+    <script src="{{ asset('js/vmsg.js') }}"></script>
 
 </body>
 </html>

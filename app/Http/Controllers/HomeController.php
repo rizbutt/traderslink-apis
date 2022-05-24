@@ -33,7 +33,13 @@ class HomeController extends Controller
         }elseif(Auth::user() &&  Auth::user()->type == 1){
             $vendor_details = Vendor_Details::where('user_id', Auth::user()->id)->firstOrFail();
             $vendor_queries = Queries::where('type', $vendor_details->dealin)->get();
-            return view('vendor.home', compact('vendor_queries'));
+            $devicekey = 'no';
+            if((Auth::user()->device_key) != ''){
+                $devicekey = 'yes';
+            }
+            
+            //dd(Auth::user()->device_key);
+            return view('vendor.home', compact('vendor_queries'))->with('notify', $devicekey);
         }else {
             $categories = Categories::all()->where('parent_id', 0)->where('status', 1);
 
