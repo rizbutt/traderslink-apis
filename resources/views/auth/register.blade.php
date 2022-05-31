@@ -40,13 +40,13 @@
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Phone') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('email') }}" required autocomplete="phone">
+                                <input id="phone" type="text" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="" required >
 
-                                @error('phone')
+                                @if ($errors->has('phone'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
 

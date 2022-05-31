@@ -15,13 +15,13 @@
                             <label for="Phone" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="text" placeholder="03XXXXXXXX" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                                <input id="phone" type="text" placeholder="03XXXXXXXX" class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
 
-                                @error('phone')
+                                @if ($errors->has('phone'))
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>{{ $errors->first('phone') }}</strong>
                                     </span>
-                                @enderror
+                                @endif
                             </div>
                         </div>
 

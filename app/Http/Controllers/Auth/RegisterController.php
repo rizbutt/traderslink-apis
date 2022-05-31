@@ -152,36 +152,5 @@ class RegisterController extends Controller
                 }
         //dd($request->all());
      }
-     public function login(Request $request)
-     {
-         $data = Validator::make($request->all(), [
-            'phone' => ['required', 'string', 'max:55'],
-            'password' => ['required', 'string', 'min:8'],
-        ]);
-        if ($data->fails()) {
-            $errors = $data->errors();
-            return response()->json([
-                'err' => $errors,
-            ]);
-        }
-        $data = $data->safe()->collect();
-        if (Auth::attempt($data)) {
-            $session = $request->session()->regenerate();
-            $token = auth()->user()->createToken('API Token')->accessToken;
-            return response(['user' => auth()->user(), 'token' => $token, 'session' => $session]);
-            //return redirect()->intended('dashboard');
-        }
-        //
-         //return response(['msg' => $data]);
-        
-        //  if (!auth()->attempt($data)) {
-        //      return response(['error_message' => 'Incorrect Details. 
-        //      Please try again']);
-        //  }
- 
-         
-         
-        //  return response(['user' => auth()->user(), 'token' => $token]);
- 
-     }  
+    
 }
