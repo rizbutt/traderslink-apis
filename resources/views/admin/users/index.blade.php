@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 
 @section('content');
-<div class="row">
+<div class="row px-3">
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('admin.category.create') }}"> Create New Vendor</a>
+                <a class="btn btn-primary text-white mb-3" href="{{ route('admin.category.create') }}"> Create New Vendor</a>
             </div>
         </div>
-    </div>
+
     
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -15,7 +15,7 @@
         </div>
     @endif
      
-    <table class="table table-bordered">
+    <table class="table table-bordered mx-3">
         <tr>
             <th>Name</th>
             <th>Phone</th>
@@ -74,5 +74,5 @@
         </tr>
         @endforeach
     </table>
-
+</div>
 @endsection

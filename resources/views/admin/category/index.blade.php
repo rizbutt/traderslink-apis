@@ -5,10 +5,10 @@
 <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
-                <a class="btn white-bg mouse-dir" href="{{ route('admin.category.create') }}"> Create New Category</a>
+                <a class="btn btn-primary text-white mb-3" href="{{ route('admin.category.create') }}"> Create New Category</a>
             </div>
         </div>
-    </div>
+
     
     @if ($message = Session::get('success'))
         <div class="alert alert-success">
@@ -45,5 +45,6 @@
         </tr>
         @endforeach
     </table>
+    </div>
 </div>
 @endsection

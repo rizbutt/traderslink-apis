@@ -1,93 +1,100 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="container">
-
+<div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-                <button onclick="startFCM()"
-                    class="btn btn-danger btn-flat">Allow notification
-                </button>
-            <div class="card mt-3">
-                <div class="card-body">
-                    @if (session('status'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('status') }}
+        <div class="col-lg-3 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Dealin Categories</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-warning">{{ $categoriesCount }}</span></li>
+                            </ul>
+                        </div>
                     </div>
-                    @endif
-                    <form action="{{ route('send.web-notification') }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label>Message Title</label>
-                            <input type="text" class="form-control" name="title">
+                    <div class="col-lg-3 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Total Vendors</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash2"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-warning">{{ $vendorsusersCount }}</span></li>
+                            </ul>
                         </div>
-                        <div class="form-group">
-                            <label>Message Body</label>
-                            <textarea class="form-control" name="body"></textarea>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Total Users</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash3"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-warning">{{ $usersCount }}</span></li>
+                            </ul>
                         </div>
-                        <button type="submit" class="btn btn-success btn-block">Send Notification</button>
-                    </form>
-                </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="white-box analytics-info">
+                            <h3 class="box-title">Total Queries</h3>
+                            <ul class="list-inline two-part d-flex align-items-center mb-0">
+                                <li>
+                                    <div id="sparklinedash4"><canvas width="67" height="30"
+                                            style="display: inline-block; width: 67px; height: 30px; vertical-align: top;"></canvas>
+                                    </div>
+                                </li>
+                                <li class="ms-auto"><span class="counter text-warning">{{ $queriesCount }}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                 </div>
+            </div>
+    <div class="row">
+    <div class="col-md-12 col-lg-12 col-sm-12">
+    <div class="white-box">
+        <div class="d-md-flex mb-3">
+            <h3 class="box-title mb-0">Recent Queries</h3>
+            <div class="col-md-3 col-sm-4 col-xs-6 ms-auto"></div>
+        </div>
+            <div class="table-responsive">
+                <table class="table no-wrap">
+                    <thead>
+                        <tr>
+                            <th class="border-top-0">#</th>
+                            <th class="border-top-0">Name</th>
+                            <th class="border-top-0">Phone</th>
+                            <th class="border-top-0">Query</th>
+                            <th class="border-top-0">Date Time</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    @foreach($queries as $query)
+                    <tr>
+                        <td>{{ $query->id }}</td>
+                        <td class="txt-oflo">{{ $query->sender_name }}</td>
+                        <td>{{ $query->sender_phone_number }}</td>
+                        <td class="txt-oflo">{{ $query->content }}</td>
+                        <td><span class="text-warning">{{ $query->created_at }}</span></td>
+                    </tr>
+                    @endforeach
+                    
+                </tbody>
+                </table>
             </div>
         </div>
     </div>
+    </div>
 </div>
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-<script>
-    var firebaseConfig = {
-        apiKey: '{{ config('services.firebase.api_key') }}',
-        authDomain: '{{ config('services.firebase.auth_domain') }}',
-        databaseURL: '{{ config('services.firebase.database_url') }}',
-        projectId: '{{ config('services.firebase.project_id') }}',
-        storageBucket: '{{ config('services.firebase.storage_bucket') }}',
-        messagingSenderId: '{{ config('services.firebase.messaging_sender_id') }}',
-        appId: '{{ config('services.firebase.app_id') }}',
-    };
-    firebase.initializeApp(firebaseConfig);
-    const messaging = firebase.messaging();
-    function startFCM() {
-        messaging
-            .requestPermission()
-            .then(function () {
-                
-                return messaging.getToken()
-            })
-            .then(function (response) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    url: '{{ route("store.token") }}',
-                    type: 'POST',
-                    data: {
-                        token: response
-                    },
-                    dataType: 'JSON',
-                    success: function (response) {
-                        alert('Token stored.');
-                    },
-                    error: function (data) {
-                        alert(data+'this');
-                    },
-                });
-            }).catch(function (error) {
-                alert(error);
-            });
-    }
-    messaging.onMessage(function (payload) {
-        const title = payload.notification.title;
-        const options = {
-            body: payload.notification.body,
-            icon: payload.notification.icon,
-        };
-        new Notification(title, options);
-    });
-</script>
-   
+
 @endsection
 
-    </body>
-</html>
+
