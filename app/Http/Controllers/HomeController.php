@@ -37,7 +37,7 @@ class HomeController extends Controller
             $usersCount = $users->count();
             $queriesCount = $queries->count();
             $vendorsusersCount = $vendorsusers->count();
-            dd($queries);
+            //dd($queries);
             return view('admin.adminhome',compact('queries', 'usersCount', 'queriesCount', 'vendorsusersCount', 'categoriesCount'));
 
         }elseif(Auth::user() &&  Auth::user()->type == 1){

@@ -94,46 +94,4 @@
 
             @yield('content')
         </main>
-    </div>
-    <!-- Start Footer Area -->
-    <footer class="footer">
-
-        Admin
-        <!-- Start Footer Bottom -->
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="inner">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="left">
-                                <p>Designed and Developed by<a href="#" rel="nofollow"
-                                        target="_blank">MathTech</a></p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-12">
-                            <div class="right">
-                                <p>All Right Reserved Design By Traderslink</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Footer Middle -->
-    </footer>
-    <!--/ End Footer Area -->
-    <a href="#" class="scroll-top btn-hover">
-        <i class="lni lni-chevron-up"></i>
-    </a>
-    <script src="{{ asset('js/count-up.min.js') }}"></script>
-    <script src="{{ asset('js/wow.min.js') }}"></script>
-    <script src="{{ asset('js/tiny-slider.js') }}"></script>
-    <script src="{{ asset('js/glightbox.min.js') }}"></script>
-    <script src="{{ asset('js/imagesloaded.min.js') }}"></script>
-    <script src="{{ asset('js/isotope.min.js') }}"></script>
-    <script src="{{ asset('js/main.js') }}"></script>
-    <script src="{{ asset('js/jquery.js') }}"></script>
-    <script src="{{ asset('js/vmsg.js') }}"></script>
-
-</body>
-</html>
+        @include('partials.vendorfooter')

@@ -4,18 +4,16 @@
 <div class="container">
 <div class="row clearfix">
     <div class="col-lg-12">
-        <div class="card chat-app">
+        <div class="card chat-app vh-100">
             <div id="plist" class="people-list">
                 <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fa fa-search"></i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Search...">
+                @if($notify == 'no')
+                <button onclick="startFCM()" class="btn btn-danger btn-flat">Allow notification</button>
+                @endif
                 </div>
-                <ul class="list-unstyled chat-list mt-2 mb-0">
+                <ul class="list-unstyled chat-list mt-2 mb-0" id="querylist">
                 @foreach($vendor_queries as $query)
                     <li class="clearfix" id= {{ $query->id }}>
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
                         <div class="about">
                             <div class="name" id="qname">{{ $query->sender_name }}</div>
                             <div class="name" id = "qphone">{{ $query->sender_phone_number }}</div>
@@ -48,7 +46,7 @@
                     </div>
                 </div>
                 <div class="chat-history">
-                   <p id="dcont"></p>
+                   <p id="dcont">Traders Links</p>
                 </div>
                 
             </div>
@@ -57,15 +55,6 @@
 </div>
 </div>
 @if($notify == 'no')
-<div class="container">
-    
-    <div class="row justify-content-center">
-    <div style="display: none;" id="devkey">{{ $key }}</div>
-    <div class="col-md-8">
-    <button onclick="startFCM()" class="btn btn-danger btn-flat">Allow notification</button>
-        </div>
-    </div>
-</div>
 <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
 <script>
     var firebaseConfig = {

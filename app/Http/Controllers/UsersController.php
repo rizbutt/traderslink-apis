@@ -84,9 +84,7 @@ class UsersController extends Controller
             $users = $users;
 
         }
-        //dd($details);
         $cat_list = Categories::all();
-        //dd($cat_list);
         return view('admin.users.edit',compact('users', 'cat_list'));
     }
 
@@ -99,7 +97,29 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        if($user->type == 1){
+            User::where('id', $id)->update(['name' => $request->name, 'phone' => $request->phone,  'status' => $request->status ]);
+            Vendor_Details::where('user_id', $id)->update(['city' => $request->city, 'address' => $request->address, 'shop_number' => $request->shop_number, 'dealin' => $request->dealin]);
+            $edituser = User::find($id);
+            $editdetails = Vendor_Details::where('user_id', $id)->firstOrFail();
+           // dd($editdetails);
+            $users = (object)[
+                'id' => $edituser->id,
+                'name' => $edituser->name,
+                'phone' => $edituser->phone,
+                'type' => 'vendor',
+                'status' => $edituser->status,
+                'city' => $editdetails->city,
+                'address' => $editdetails->address,
+                'shop_number' => $editdetails->shop_number,
+                'shop_images' => $editdetails->shop_images,
+                'dealin' => $editdetails->dealin,
+            ];
+            $cat_list = Categories::all();
+        return view('admin.users.edit',compact('users', 'cat_list'));
+        }
+        dd($request->all(), $user);
     }
 
     /**
