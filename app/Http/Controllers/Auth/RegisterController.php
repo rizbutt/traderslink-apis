@@ -94,7 +94,7 @@ class RegisterController extends Controller
                                 if($check){
                                     $destinationPath = 'image/vendors/'.$request->phone;
                                     if (!file_exists($destinationPath)) {
-                                        mkdir($destinationPath, 0777, true);
+                                        mkdir($destinationPath, 0755, true);
                                     }
                                         $profileImage = date('YmdHis'). $filename . "." . $extension;
                                         array_push($shopImages,$profileImage);
