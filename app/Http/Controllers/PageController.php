@@ -69,6 +69,12 @@ class PageController extends Controller
     {
         $maincategory = Categories::where('slug', $id)->where('status', 1)->firstOrFail();
         $childcategory = Categories::all()->where('parent_id', $maincategory->id)->where('status', 1);
+        if(count($childcategory) === 0){
+            $selectedcategory = $maincategory->id;
+            $categories = Categories::all();
+            return view('findparts',compact('categories', 'selectedcategory'));
+        }
+        
         return view('category',compact('childcategory'));
     }
 
